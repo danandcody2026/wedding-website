@@ -74,7 +74,7 @@
                     <nav>
                         <ul class="primary-nav">
                             <!-- <li><a href="#intro">How we met</a></li> -->
-                            <li><a href="#orderofevents">What's the plan?</a></li>
+                            <li><a href="#orderofevents">What's the plan, Dan?</a></li>
                             <li><a href="#findoutmore">Find out more</a></li>
                             <!-- <li><a href="#instagram">Instagram</a></li> -->
                             <!-- <li><a href="#eng-pics">Engagement</a></li> -->
@@ -161,7 +161,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="header">What's the plan?</h3>
+                <h3 class="header">What's the plan, Dan?</h3>
             </div>
         </div>
         <div class="row">
@@ -483,20 +483,56 @@
 </section>
 
 <section id="findoutmore" class="section-padding">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2 text-center">
-        <h2>Find out more</h2>
-        <p>Sign up to receive updates when we add more information to the website.</p>
-        <form id="findoutmore-form">
-          <div class="form-input-group" style="max-width:400px;margin:0 auto;">
-            <input type="text" name="email" class="form-control" placeholder="Your email address" required>
-          </div>
-          <button type="submit" class="btn btn-fill" style="margin-top:15px;">Sign up for updates</button>
-        </form>
-      </div>
+<section id="playlist" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h3 class="header">Add to the playlist</h3>
+                <p>Suggest a song for the party! Add the title, artist, and your name below.</p>
+                <form id="playlist-form" style="margin-bottom:30px;">
+                    <div class="row">
+                        <div class="col-sm-4 form-input-group">
+                            <input type="text" name="title" class="form-control" placeholder="Song Title" required>
+                        </div>
+                        <div class="col-sm-4 form-input-group">
+                            <input type="text" name="artist" class="form-control" placeholder="Artist" required>
+                        </div>
+                        <div class="col-sm-4 form-input-group">
+                            <input type="text" name="guest" class="form-control" placeholder="Your Name" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-fill" style="margin-top:15px;">Add Song</button>
+                </form>
+                <h4 class="header" style="margin-top:40px;">What we'll be dancing to</h4>
+                <ul id="playlist-songs" class="list-unstyled" style="color:#fff;font-size:1.2em;"></ul>
+            </div>
+        </div>
     </div>
-  </div>
+</section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h3 class="header">Find out more</h3>
+                <p>Sign up to receive updates when we add more information to the website.</p>
+                        <form id="findoutmore-form">
+                            <div class="form-input-group findoutmore-group">
+                                <input type="text" name="email" class="form-control" placeholder="Your email address" required>
+                            </div>
+                            <button type="submit" class="btn btn-fill findoutmore-btn">Sign up for updates</button>
+                        </form>
+        <style>
+            /* Match RSVP section spacing for Find out more */
+            .findoutmore-group {
+                max-width: 400px;
+                margin: 0 auto 20px auto;
+            }
+            .findoutmore-btn {
+                margin-top: 20px;
+            }
+        </style>
+            </div>
+        </div>
+    </div>
 </section>
 
 <footer>
@@ -517,6 +553,59 @@
 <script src="js/jquery.mb.YTPlayer.min.js"></script>
 <script src="js/vendor/ouical.js"></script>
 <script src="js/scripts.min.js"></script>
+<script>
+// Playlist functionality: Google Sheets backend
+const PLAYLIST_API_URL = 'https://script.google.com/macros/s/AKfycbw9doF7AlPHlYTlx_UZL6ufUvhDBS6iWkZOnSp1vVtd0ENmCwpBW9kiiK9jdWzgq1Uv-Q/exec';
+function renderPlaylist() {
+    var ul = document.getElementById('playlist-songs');
+    if (!ul) return;
+    ul.innerHTML = '<li>Loading...</li>';
+    fetch(PLAYLIST_API_URL)
+        .then(res => res.json())
+        .then(list => {
+            ul.innerHTML = '';
+            if (!Array.isArray(list) || list.length === 0) {
+                ul.innerHTML = '<li>No songs added yet. Be the first!</li>';
+                return;
+            }
+            list.forEach(function(song) {
+                if (!song.title || !song.artist || !song.guest) return;
+                var li = document.createElement('li');
+                li.innerHTML = '<strong>' + song.title + '</strong> by ' + song.artist + ' <span style="font-size:0.9em;">(suggested by ' + song.guest + ')</span>';
+                ul.appendChild(li);
+            });
+        })
+        .catch(() => {
+            ul.innerHTML = '<li>Could not load playlist. Please try again later.</li>';
+        });
+}
+if (document.getElementById('playlist-form')) {
+    renderPlaylist();
+    document.getElementById('playlist-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var form = e.target;
+        var song = {
+            title: form.title.value.trim(),
+            artist: form.artist.value.trim(),
+            guest: form.guest.value.trim()
+        };
+        if (!song.title || !song.artist || !song.guest) return;
+        fetch(PLAYLIST_API_URL, {
+            method: 'POST',
+            body: JSON.stringify(song),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(() => {
+            form.reset();
+            renderPlaylist();
+        })
+        .catch(() => {
+            alert('There was an error adding your song. Please try again.');
+        });
+    });
+}
+</script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBlPw3GQYI3faa_9mRE6plWuM7xNEmrwH0&callback=initMap"></script>
 <!-- Google Analytics -->
