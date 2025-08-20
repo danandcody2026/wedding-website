@@ -1,0 +1,109 @@
+/* Find out more signup button navy accent */
+#findoutmore-form .btn.btn-fill {
+  background: #223c6c !important;
+  border-color: #223c6c !important;
+  color: #fff !important;
+}
+#findoutmore-form .btn.btn-fill:hover {
+  background: #18294a !important;
+  border-color: #18294a !important;
+  color: #fff !important;
+}
+/* Make navigation panel text bold */
+.navigation .primary-nav a,
+.navigation .member-actions a {
+  font-weight: bold !important;
+}
+/* To-top arrow at bottom of page navy accent */
+.to-top-wrapper .to-top,
+.to-top-wrapper .to-top i {
+  color: #223c6c !important;
+}
+.to-top-wrapper {
+  border-color: #223c6c !important;
+}
+/* RSVP submit button navy accent */
+.rsvp .rsvp-btn,
+.rsvp .btn-fill.rsvp-btn {
+  background: #223c6c !important;
+  border-color: #223c6c !important;
+  color: #fff !important;
+}
+.rsvp .rsvp-btn:hover,
+.rsvp .btn-fill.rsvp-btn:hover {
+  background: #18294a !important;
+  border-color: #18294a !important;
+  color: #fff !important;
+}
+/* RSVP form accent colors navy */
+.rsvp .form-input-group {
+  border-color: #223c6c !important;
+}
+.rsvp .form-input-group i {
+  color: #223c6c !important;
+}
+.rsvp .form-input-group input:focus {
+  border-color: #223c6c !important;
+  box-shadow: 0 0 0 2px #223c6c22 !important;
+}
+.a4-image {
+  max-width: 600px !important;
+  width: 90% !important;
+}
+.hero {
+  background: #fff !important;
+  background-image: none !important;
+}
+body,
+section,
+section.section-padding,
+section.intro,
+section.features-extra,
+section.rsvp,
+section.features,
+section.events,
+section.blog,
+section#invitation,
+.hero,
+.hero-strip,
+#video-bg,
+#map,
+footer,
+.container,
+.container-fluid {
+  background: #fffcf4 !important;
+  background-color: #fffcf4 !important;
+}
+section#invitation {
+  background: #fffcf4 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+section#invitation {
+  background: #fffcf4 !important;
+}
+body {
+  background: #fffcf4 !important;
+}
+
+.navigation,
+.navigation.fixed {
+  background: #223c6c !important;
+  background-color: #223c6c !important;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+/* Keep navigation bar solid navy and fixed on scroll */
+.navigation,
+.navigation.fixed {
+  background: #223c6c !important;
+  background-color: #223c6c !important;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+/* Custom overrides for hero background */
+.hero {
+  background: #fffcf4 !important;
+}
